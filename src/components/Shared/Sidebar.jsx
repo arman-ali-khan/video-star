@@ -1,22 +1,9 @@
-import React from 'react';
-import {GrHomeRounded} from 'react-icons/gr'
-import {CgMenuLeft} from 'react-icons/cg'
+import { useState } from "react";
+import { CgHome } from "react-icons/cg";
+import { Link } from "react-router-dom";
 
-const Sidebar = () => {
+export default function Sidebar({hideSideBar}) {
     return (
-        <div className=''>
-           
-            <div>
-                <ul className='mx-2'>
-                  <a href="#" className='flex hover:bg-blue-100 items-center gap-2 px-2'> <GrHomeRounded /> <li className='py-2'> Home</li></a>
-                  <a href="#" className='flex hover:bg-blue-100 items-center gap-2 px-2'> <GrHomeRounded /> <li className='py-2'> Home</li></a>
-                  <a href="#" className='flex hover:bg-blue-100 items-center gap-2 px-2'> <GrHomeRounded /> <li className='py-2'> Home</li></a>
-                  <a href="#" className='flex hover:bg-blue-100 items-center gap-2 px-2'> <GrHomeRounded /> <li className='py-2'> Home</li></a>
-                  <a href="#" className='flex hover:bg-blue-100 items-center gap-2 px-2'> <GrHomeRounded /> <li className='py-2'> Home</li></a>
-                </ul>
-            </div>
-        </div>
+      <div></div>
     );
-};
-
-export default Sidebar;
+}
