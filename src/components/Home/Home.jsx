@@ -16,7 +16,7 @@ const Home = () => {
         <button onClick={()=>setTag('')} className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
           All
         </button>
-        <button onClick={()=>setTag('movies')} className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
+        <button onClick={()=>setTag('movie')} className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
           Movies
         </button>
         <button onClick={()=>setTag('marvel')} className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
@@ -34,8 +34,8 @@ const Home = () => {
         <button onClick={()=>setTag('tools')} className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
           Tools
         </button>
-        <button onClick={()=>setTag('')} className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
-          Recent Uploaded
+        <button onClick={()=>setTag('sports')} className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
+         Sports
         </button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-center gap-2 w-full">

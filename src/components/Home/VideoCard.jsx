@@ -21,8 +21,8 @@ const VideoCard = ({video}) => {
             alt=""
           />
           <div>
-            <Link to={`/video/${id}`} className="text-base overflow-hidden font-bold leading-5">
-              {title}
+            <Link to={`/video/${id}`} className="text-base leading-4 overflow-hidden font-bold">
+              {title.slice(0,55)}{title.length>55 ? '...':''}
             </Link>
             <p className="text-sm">{author}</p>
             <div className="flex gap-3 text-sm">

@@ -19,6 +19,9 @@ const Upload = () => {
   { value: 'news', label: 'News' },
   { value: 'tools', label: 'Tools' },
   { value: 'funny', label: 'Funny' },
+  { value: 'sports', label: 'Sports' },
+  { value: 'music', label: 'Music' },
+  { value: 'Gamming', label: 'Gamming' },
 ]
 // Tags 
 const [tags,setTags] = useState([])
