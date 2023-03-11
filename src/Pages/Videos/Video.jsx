@@ -10,83 +10,20 @@ import { AuthContext } from "../../context/ContextProvider";
 import { toast } from "react-hot-toast";
 import Share from "../../components/Modal/Share";
 import axios from "axios";
+import Like from "../../components/Like/Like";
 
 const Video = () => {
   // Context api
   const { user } = useContext(AuthContext);
 
+  // show comment input box
+  const [commnetBox, setCommentBox] = useState(false);
   // load data from route (router dom)
   const videoData = useLoaderData({});
 
   // destructure
   const { email, author, title, thumb, id, videoUrl } = videoData;
 
-  // is liked
-  const [isLiked, setIsLiked] = useState([]);
-  // All likes
-  const [likes, setLikes] = useState([]);
-
-  // likeUpdate 
-  const [likeUpdate,setLikeUpdate] = useState(false)
-
-  // show comment input box
-  const [commnetBox, setCommentBox] = useState(false);
-
-
-  // handle video like
-  const handleLike = (id) => {
-    const likeData = {
-      id,
-      name: user?.displayName,
-      email: user.email,
-      postEmail: email,
-      author: author,
-      title: title,
-      thumb: thumb,
-    };
-    fetch(`http://localhost:5000/like`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(likeData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        toast.success("Liked");
-        setLikeUpdate(!likeUpdate)
-      });
-  };
-
-  // Unlike 
-  const handleUnLike = id =>{
-    fetch(`${import.meta.env.VITE_APP_API}/unlike/${id}?email=${user?.email}`,{
-        method:"DELETE",
-    })
-    .then(res=>res.json())
-    .then(data=>{
-        console.log(data)
-        toast.success('Unliked')
-        setLikeUpdate(!likeUpdate)
-    })
-  }
-
-//   Get if user like
-  useEffect(()=>{
-    axios.get(`${import.meta.env.VITE_APP_API}/like/${id}?email=${user?.email}`)
-    .then(res=>setIsLiked(res.data))
-  },[user?.email,likeUpdate])
-
-
-//   Get all likes
-  useEffect(()=>{
-    axios.get(`${import.meta.env.VITE_APP_API}/likes/${id}`)
-    .then(res=>setLikes(res.data))
-  },[user?.email,likeUpdate])
-
-
-console.log(isLiked)
   return (
     <div className="flex gap-2">
       <div className="w-3/5">
@@ -102,53 +39,7 @@ console.log(isLiked)
 
         {/* video like */}
         <div className="flex justify-between items-center gap-2 mt-4">
-         {
-            user?.email ?
-            <>
-             {isLiked.length ? (
-            // like btn
-            <div
-              onClick={() => handleUnLike(id)}
-              className={`cursor-pointer px-4 py-2 flex items-center justify-center gap-3 rounded-full text-blue-600 ${
-                isLiked.length
-                  ? "bg-blue-100 hover:bg-gray-200"
-                  : "bg-gray-200 hover:bg-blue-100"
-              } w-full tooltip`}
-              data-tip="Unlike"
-            >
-              <AiTwotoneLike className="text-2xl text-blue-600" />
-              <p className="text-lg font-bold">{likes.length}</p>
-            </div>
-          ) : (
-            // Unlike btn
-            <div
-              onClick={() =>handleLike(id)}
-              className={`cursor-pointer px-4 py-2 flex items-center justify-center gap-3 rounded-full text-blue-600 ${
-                isLiked.length
-                  ? "bg-blue-100 hover:bg-gray-200"
-                  : "bg-gray-200 hover:bg-blue-100"
-              } w-full tooltip`}
-              data-tip="I like this"
-            >
-              <AiOutlineLike className="text-2xl " />
-              <p className="text-lg font-bold">{likes.length}</p>
-            </div>
-          )}
-            </>
-            : 
-            //  like btn show for non logged user
-            <div
-            className={`cursor-pointer px-4 py-2 flex items-center justify-center gap-3 rounded-full text-blue-600 ${
-              isLiked.length
-                ? "bg-blue-100 hover:bg-gray-200"
-                : "bg-gray-200 hover:bg-blue-100"
-            } w-full tooltip`}
-            data-tip="Login to like"
-          >
-            <AiOutlineLike className="text-2xl " />
-            <p className="text-lg font-bold">{likes.length}</p>
-          </div>
-         }
+         <Like videoData={videoData} />
 
           {/* Comment btn */}
           <div
@@ -156,7 +47,7 @@ console.log(isLiked)
             className="hover:bg-blue-100 select-none cursor-pointer px-4 py-2 flex justify-center rounded-full text-blue-600 bg-gray-200 w-full items-center gap-3"
           >
             <BiComment className="text-2xl" />
-            <p className="text-lg font-bold">{isLiked.length}</p>
+            <p className="text-lg font-bold">0</p>
           </div>
           {/* Share btn */}
           <label
