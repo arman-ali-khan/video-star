@@ -23,13 +23,16 @@ const Video = () => {
 
   // is liked
   const [isLiked, setIsLiked] = useState([]);
+  // All likes
+  const [likes, setLikes] = useState([]);
 
   // likeUpdate 
   const [likeUpdate,setLikeUpdate] = useState(false)
 
   // show comment input box
   const [commnetBox, setCommentBox] = useState(false);
-console.log(user)
+
+
   // handle video like
   const handleLike = (id) => {
     const likeData = {
@@ -69,17 +72,26 @@ console.log(user)
     })
   }
 
-//   Get Like 
+//   Get if user like
   useEffect(()=>{
     axios.get(`${import.meta.env.VITE_APP_API}/like/${id}?email=${user?.email}`)
     .then(res=>setIsLiked(res.data))
   },[user?.email,likeUpdate])
 
+
+//   Get all likes
+  useEffect(()=>{
+    axios.get(`${import.meta.env.VITE_APP_API}/likes/${id}`)
+    .then(res=>setLikes(res.data))
+  },[user?.email,likeUpdate])
+
+
+console.log(isLiked)
   return (
     <div className="flex gap-2">
       <div className="w-3/5">
         <div>
-          <video className="rounded-md h-auto" controls="controls">
+          <video className="rounded-md w-full h-auto" controls="controls">
             <source src={videoUrl} type="video/mp4" />
             <source
               src="https://res.cloudinary.com/dcckbmhft/video/upload/c_limit,h_60,w_90/v1678515981/videostar/tg3dpozpf2vqvydrcfyc.jpg"
@@ -90,7 +102,10 @@ console.log(user)
 
         {/* video like */}
         <div className="flex justify-between items-center gap-2 mt-4">
-          {isLiked.length ? (
+         {
+            user?.email ?
+            <>
+             {isLiked.length ? (
             // like btn
             <div
               onClick={() => handleUnLike(id)}
@@ -99,26 +114,41 @@ console.log(user)
                   ? "bg-blue-100 hover:bg-gray-200"
                   : "bg-gray-200 hover:bg-blue-100"
               } w-full tooltip`}
-              data-tip={` ${isLiked.length ? "Unlike" : "I like this"}`}
+              data-tip="Unlike"
             >
               <AiTwotoneLike className="text-2xl text-blue-600" />
-              <p className="text-lg font-bold">{isLiked.length}</p>
+              <p className="text-lg font-bold">{likes.length}</p>
             </div>
           ) : (
             // Unlike btn
             <div
               onClick={() =>handleLike(id)}
-              className={`cursor-pointer px-4 py-2 flex justify-center  rounded-full text-blue-600 ${
+              className={`cursor-pointer px-4 py-2 flex items-center justify-center gap-3 rounded-full text-blue-600 ${
                 isLiked.length
                   ? "bg-blue-100 hover:bg-gray-200"
                   : "bg-gray-200 hover:bg-blue-100"
               } w-full tooltip`}
-              data-tip={` ${isLiked.length ? "Unlike" : "I like this"}`}
+              data-tip="I like this"
             >
               <AiOutlineLike className="text-2xl " />
-              <p className="text-lg font-bold">{isLiked.length}</p>
+              <p className="text-lg font-bold">{likes.length}</p>
             </div>
           )}
+            </>
+            : 
+            //  like btn show for non logged user
+            <div
+            className={`cursor-pointer px-4 py-2 flex items-center justify-center gap-3 rounded-full text-blue-600 ${
+              isLiked.length
+                ? "bg-blue-100 hover:bg-gray-200"
+                : "bg-gray-200 hover:bg-blue-100"
+            } w-full tooltip`}
+            data-tip="Login to like"
+          >
+            <AiOutlineLike className="text-2xl " />
+            <p className="text-lg font-bold">{likes.length}</p>
+          </div>
+         }
 
           {/* Comment btn */}
           <div
