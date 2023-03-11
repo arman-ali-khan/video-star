@@ -83,7 +83,8 @@ const Navbar = ({ hideSideBar }) => {
           </div>
         </fieldset>
       </div>
-      <div className="md:mx-12">
+      {
+        user?.email ? <div className="md:mx-12">
         <ul className="flex items-center gap-3">
           {/* Upload Btn */}
           <UploadWidget />
@@ -100,7 +101,6 @@ const Navbar = ({ hideSideBar }) => {
                     alt=""
                   />
                 </label>
-                {user?.email ? (
                   <ul
                     tabIndex={0}
                     className="dropdown-content menu p-2 border bg-base-100 rounded-box w-52"
@@ -109,14 +109,30 @@ const Navbar = ({ hideSideBar }) => {
                       <a onClick={() => handleLogout()}>Logout</a>
                     </li>
                   </ul>
-                ) : (
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      :
+      <div className="md:mx-12">
+        <ul className="flex items-center gap-3">
+         
+          <li>
+            <div>
+              <div className="dropdown dropdown-end">
+                <label tabIndex={0} className=" m-1">
+                  <img
+                    className="w-8 h-8 rounded-full object-cover"
+                    src="https://res.cloudinary.com/dcckbmhft/image/upload/v1673848125/sample.jpg"
+                    alt=""
+                  />
+                </label>
+                
                   <ul
                     tabIndex={0}
                     className="dropdown-content menu p-2 border bg-base-100 rounded-box w-52"
                   >
-                    {/* <li>
-                      <a onClick={() => handleGoogleLogin()}>Google Login</a>
-                    </li> */}
 
                     <li>
                       <Link to={'/login'}>Login</Link>
@@ -125,12 +141,13 @@ const Navbar = ({ hideSideBar }) => {
                       <Link to={'/register'}>Register</Link>
                     </li>
                   </ul>
-                )}
+                
               </div>
             </div>
           </li>
         </ul>
       </div>
+      }
     </div>
   );
 };

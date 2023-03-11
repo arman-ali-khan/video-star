@@ -1,39 +1,46 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import VideoCard from "./VideoCard";
 
 const Home = () => {
+  const [tag,setTag] = useState('')
+  const [videos,setVideos] = useState([])
+  useEffect(()=>{
+    axios.get(`http://localhost:5000/videos/${tag}`)
+    .then(res=>setVideos(res.data))
+  },[tag])
   return (
     // Hero Section
     <div>
       <div className="flex overflow-auto scroll-smooth gap-1 my-2">
-        <button className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
+        <button onClick={()=>setTag('')} className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
           All
         </button>
-        <button className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
-          Movie
+        <button onClick={()=>setTag('movies')} className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
+          Movies
         </button>
-        <button className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
+        <button onClick={()=>setTag('marvel')} className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
           Marvel
         </button>
-        <button className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
+        <button onClick={()=>setTag('dc')} className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
           DC
         </button>
-        <button className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
+        <button onClick={()=>setTag('news')} className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
           News
         </button>
-        <button className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
+        <button onClick={()=>setTag('world-news')} className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
           Wrold News
         </button>
-        <button className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
+        <button onClick={()=>setTag('tools')} className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
           Tools
         </button>
-        <button className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
+        <button onClick={()=>setTag('')} className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
           Recent Uploaded
         </button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-center gap-2 w-full">
-        {[0, 3, 3, 3, 3, 3].map((video,i) => (
-          <VideoCard key={i} video={video} />
+        {videos.map((video) => (
+          <VideoCard key={video._id} video={video} />
         ))}
       </div>
     </div>
