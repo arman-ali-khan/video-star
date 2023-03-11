@@ -10,7 +10,7 @@ const Sidebar = ({hideSideBar, setHideSideBar}) => {
     return (
         <div className="md:flex hidden flex-col">
           <div className="flex justify-between">
-            <div
+            <Link to={'/'}
               className={`md:flex hidden  ${
                 hideSideBar
                   ? "w-0 h-0 duration-300 transition-all"
@@ -22,7 +22,7 @@ const Sidebar = ({hideSideBar, setHideSideBar}) => {
                 src="https://res.cloudinary.com/dcckbmhft/image/upload/v1677914511/fav_dtornq.svg"
                 alt=""
               />
-            </div>
+            </Link>
             <div
               onClick={() => setHideSideBar(!hideSideBar)}
               className="px-6 py-4"

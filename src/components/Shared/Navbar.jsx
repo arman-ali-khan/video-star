@@ -5,6 +5,7 @@ import { ImCancelCircle } from "react-icons/im";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/ContextProvider";
 import Notification from "../Notification/Notification";
+import UploadWidget from "../Upload/UploadWidget";
 
 const Navbar = ({ hideSideBar }) => {
   const { googleLogin, userLogout, user } = useContext(AuthContext);
@@ -31,7 +32,7 @@ const Navbar = ({ hideSideBar }) => {
   return (
     <div className=" fixed md:static w-full bg-white left-0 flex justify-between items-center  gap-3 h-12">
       <div className="flex items-center gap-6">
-        <div>
+        <Link to={'/'}>
           <img
             className={`${
               hideSideBar
@@ -41,7 +42,7 @@ const Navbar = ({ hideSideBar }) => {
             src="https://res.cloudinary.com/dcckbmhft/image/upload/v1677914511/fav_dtornq.svg"
             alt=""
           />
-        </div>
+        </Link>
         <fieldset className="w-full space-y-1 text-gray-800">
           <label htmlFor="Search" className="hidden">
             Search
@@ -84,14 +85,10 @@ const Navbar = ({ hideSideBar }) => {
       </div>
       <div className="md:mx-12">
         <ul className="flex items-center gap-3">
-          <li className="flex justify-center items-center">
-            <button
-              className="hover:bg-gray-200 p-2 text-2xl rounded-full tooltip tooltip-bottom"
-              data-tip="Upload"
-            >
-              <FiUploadCloud className="" />
-            </button>
-          </li>
+          {/* Upload Btn */}
+          <UploadWidget />
+         
+          {/* Notification */}
           <Notification />
           <li>
             <div>

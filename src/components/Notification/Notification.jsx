@@ -29,7 +29,7 @@ const Notification = () => {
               alt=""
             />
             <li className="flex items-center">
-              <Link className="bg-transparent break-words w-72 md:w-80">
+              <Link className="bg-transparent break-words w-72 md:w-80 text-left">
                 User like your video fsdf fsdaf sdfsadf sdf aseYour video title
               </Link>
             </li>
@@ -42,7 +42,7 @@ const Notification = () => {
               alt=""
             />
             <li className="flex items-center">
-              <Link className="bg-transparent break-words w-72 md:w-80">
+              <Link className="bg-transparent break-words w-72 md:w-80 text-left">
                 User Comment your video Your video title
               </Link>
             </li>
@@ -55,7 +55,7 @@ const Notification = () => {
               alt=""
             />
             <li className="flex items-center">
-              <Link className="bg-transparent break-words w-72 md:w-80">
+              <Link className="bg-transparent break-words w-72 md:w-80 text-left">
                 User posted new video Your video title
               </Link>
             </li>
