@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import {
   AiOutlineLike,
@@ -9,6 +9,7 @@ import { BiComment } from "react-icons/bi";
 import { AuthContext } from "../../context/ContextProvider";
 import { toast } from "react-hot-toast";
 import Share from "../../components/Modal/Share";
+import axios from "axios";
 
 const Video = () => {
   // Context api
@@ -21,23 +22,26 @@ const Video = () => {
   const { email, author, title, thumb, id, videoUrl } = videoData;
 
   // is liked
-  const [isLiked, setIsLiked] = useState(["f"]);
+  const [isLiked, setIsLiked] = useState([]);
+
+  // likeUpdate 
+  const [likeUpdate,setLikeUpdate] = useState(false)
 
   // show comment input box
   const [commnetBox, setCommentBox] = useState(false);
-
+console.log(user)
   // handle video like
   const handleLike = (id) => {
     const likeData = {
       id,
-      name: user.displayName,
+      name: user?.displayName,
       email: user.email,
       postEmail: email,
       author: author,
       title: title,
       thumb: thumb,
     };
-    fetch(`loac/like`, {
+    fetch(`http://localhost:5000/like`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -48,8 +52,28 @@ const Video = () => {
       .then((data) => {
         console.log(data);
         toast.success("Liked");
+        setLikeUpdate(!likeUpdate)
       });
   };
+
+  // Unlike 
+  const handleUnLike = id =>{
+    fetch(`${import.meta.env.VITE_APP_API}/unlike/${id}?email=${user?.email}`,{
+        method:"DELETE",
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        console.log(data)
+        toast.success('Unliked')
+        setLikeUpdate(!likeUpdate)
+    })
+  }
+
+//   Get Like 
+  useEffect(()=>{
+    axios.get(`${import.meta.env.VITE_APP_API}/like/${id}?email=${user?.email}`)
+    .then(res=>setIsLiked(res.data))
+  },[user?.email,likeUpdate])
 
   return (
     <div className="flex gap-2">
@@ -69,7 +93,7 @@ const Video = () => {
           {isLiked.length ? (
             // like btn
             <div
-              onClick={() => handleLike(_id)}
+              onClick={() => handleUnLike(id)}
               className={`cursor-pointer px-4 py-2 flex items-center justify-center gap-3 rounded-full text-blue-600 ${
                 isLiked.length
                   ? "bg-blue-100 hover:bg-gray-200"
@@ -83,7 +107,7 @@ const Video = () => {
           ) : (
             // Unlike btn
             <div
-              onClick={() => handleLike(_id)}
+              onClick={() =>handleLike(id)}
               className={`cursor-pointer px-4 py-2 flex justify-center  rounded-full text-blue-600 ${
                 isLiked.length
                   ? "bg-blue-100 hover:bg-gray-200"
