@@ -73,7 +73,6 @@ const Like = ({videoData}) => {
       .then((res) => setLikes(res.data));
   }, [user?.email, likeUpdate]);
 
-  console.log(isLiked);
     return (
         <>
           {user?.email ? (
