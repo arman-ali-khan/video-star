@@ -1,24 +1,22 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import {
-  AiOutlineLike,
-  AiOutlineShareAlt,
-  AiTwotoneLike,
-} from "react-icons/ai";
-import { BiComment } from "react-icons/bi";
+import {  AiOutlineShareAlt } from "react-icons/ai";
 import { AuthContext } from "../../context/ContextProvider";
 import { toast } from "react-hot-toast";
 import Share from "../../components/Modal/Share";
 import axios from "axios";
 import Like from "../../components/Like/Like";
-import Comment from "../../components/Comment/Comment";
 import ButtonLoading from "../../components/Loader/ButtonLoading";
 import { useForm } from "react-hook-form";
-import SingleComment from "../../components/Comment/SingleComment";
+import Comments from "../../components/Comment/Comments";
+import CommentButton from "../../components/Comment/CommentButton";
 
 const Video = () => {
   // Context api
   const { user } = useContext(AuthContext);
+
+// realtime comment update 
+const [commented,setCommented] = useState(false)
 
 //   react hook form 
 const { register,reset, formState: { errors }, handleSubmit } = useForm();
@@ -61,6 +59,7 @@ const { register,reset, formState: { errors }, handleSubmit } = useForm();
         toast.success('Commented')
         setLoading(false)
         reset()
+        setCommented(!commented)
     })
   }
 
@@ -69,7 +68,7 @@ const { register,reset, formState: { errors }, handleSubmit } = useForm();
   useEffect(()=>{
     axios.get(`http://localhost:5000/comments/${id}`)
     .then(res=>setComments(res.data))
-  },[comment])
+  },[comment,commented])
 
   return (
     <div className="md:flex gap-2">
@@ -89,7 +88,7 @@ const { register,reset, formState: { errors }, handleSubmit } = useForm();
          <Like videoData={videoData} />
 
           {/* Comment btn */}
-        <Comment setCommentBox={setCommentBox} commnetBox={commnetBox} />
+        <CommentButton comments={comments} setCommentBox={setCommentBox} commnetBox={commnetBox} />
           {/* Share btn */}
           <label
             htmlFor="share"
@@ -116,7 +115,7 @@ const { register,reset, formState: { errors }, handleSubmit } = useForm();
           />
           <button disabled={comment.length<5}  className="btn btn-warning w-32 rounded-l-none">{loading?<ButtonLoading />:'Comment'}</button>
         </form>
-        <SingleComment comments={comments} />
+        <Comments comments={comments} />
       </div>
       <div className="md:w-2/5">
         <p className="bg-blue-100 text-blue-600 px-4 py-2">Related Videos</p>

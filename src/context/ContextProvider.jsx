@@ -8,7 +8,7 @@ const auth = getAuth(app)
 
 
 const ContextProvider = ({children}) => {
-
+// firebase user
     const [user,setUser] = useState({})
 
     const googleProvider = new GoogleAuthProvider()
@@ -40,7 +40,9 @@ useEffect(()=>{
     return ()=> unsubscribe();
 },[])
 
-const info = {user,googleLogin,userLogout,createUser,loginUser,updateUserData}
+
+
+const info = {user,googleLogin,userLogout,createUser,loginUser, updateUserData}
     return (
         <AuthContext.Provider value={info}>
             {children}
