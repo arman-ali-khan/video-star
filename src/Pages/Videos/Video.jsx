@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import {  AiOutlineShareAlt } from "react-icons/ai";
+import { AiOutlineShareAlt } from "react-icons/ai";
 import { AuthContext } from "../../context/ContextProvider";
 import { toast } from "react-hot-toast";
 import Share from "../../components/Modal/Share";
@@ -10,17 +10,25 @@ import ButtonLoading from "../../components/Loader/ButtonLoading";
 import { useForm } from "react-hook-form";
 import Comments from "../../components/Comment/Comments";
 import CommentButton from "../../components/Comment/CommentButton";
+import { Helmet } from "react-helmet";
 
 const Video = () => {
   // Context api
   const { user } = useContext(AuthContext);
 
-// realtime comment update 
-const [commented,setCommented] = useState(false)
+  // realtime comment update
+  const [commented, setCommented] = useState(false);
 
-//   react hook form 
-const { register,reset, formState: { errors }, handleSubmit } = useForm();
+  //   react hook form
+  const {
+    register,
+    reset,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
+  // Show hide description
+  const [showDesc, setShowDesc] = useState(false);
 
   // show comment input box
   const [commnetBox, setCommentBox] = useState(false);
@@ -31,48 +39,56 @@ const { register,reset, formState: { errors }, handleSubmit } = useForm();
   const { email, author, title, thumb, id, videoUrl } = videoData;
 
   // loading comment
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
-  const [comment,setComment] = useState('')
+  const [comment, setComment] = useState("");
 
-  const handleComment = (data) =>{
-    setLoading(true)
+  const handleComment = (data) => {
+    setLoading(true);
     const commentData = {
-        comment:data.comment,
-        email: user.email,
-        author,
-        title,
-        thumb,
-        postEmail: email,
-        id,
-    }
-    fetch(`${import.meta.env.VITE_APP_API}/comment`,{
-        method:'POST',
-        headers:{
-            'content-type':'application/json'
-        },
-        body: JSON.stringify(commentData)
+      comment: data.comment,
+      email: user.email,
+      author,
+      title,
+      thumb,
+      postEmail: email,
+      id,
+    };
+    fetch(`${import.meta.env.VITE_APP_API}/comment`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(commentData),
     })
-    .then(res=>res.json())
-    .then(data=>{
-        console.log(data)
-        toast.success('Commented')
-        setLoading(false)
-        reset()
-        setCommented(!commented)
-    })
-  }
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        toast.success("Commented");
+        setLoading(false);
+        reset();
+        setCommented(!commented);
+      });
+  };
 
-  // get all comment 
-  const [comments,setComments] = useState([])
-  useEffect(()=>{
-    axios.get(`http://localhost:5000/comments/${id}`)
-    .then(res=>setComments(res.data))
-  },[comment,commented])
+  const desc =
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat neque placeat illo ipsum veritatis velit suscipit maxime! Voluptates, culpa atque, quia, voluptate fugiat voluptatibus adipisci est nemo eius similique harum?";
+
+  // get all comment
+  const [comments, setComments] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/comments/${id}`)
+      .then((res) => setComments(res.data));
+  }, [comment, commented]);
 
   return (
     <div className="md:flex gap-2">
       <div className="md:w-3/5">
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>{videoData.title}</title>
+        </Helmet>
         <div>
           <video className="rounded-md w-full h-auto" controls="controls">
             <source src={videoUrl} type="video/mp4" />
@@ -82,13 +98,22 @@ const { register,reset, formState: { errors }, handleSubmit } = useForm();
             />
           </video>
         </div>
-
+        {/* Video title and description */}
+        <div>
+          <div>
+            <h3 className="text-xl font-bold">{videoData.title}</h3>
+          </div>
+        </div>
         {/* video like */}
         <div className="flex justify-between items-center gap-2 mt-4">
-         <Like videoData={videoData} />
+          <Like videoData={videoData} />
 
           {/* Comment btn */}
-        <CommentButton comments={comments} setCommentBox={setCommentBox} commnetBox={commnetBox} />
+          <CommentButton
+            comments={comments}
+            setCommentBox={setCommentBox}
+            commnetBox={commnetBox}
+          />
           {/* Share btn */}
           <label
             htmlFor="share"
@@ -97,23 +122,36 @@ const { register,reset, formState: { errors }, handleSubmit } = useForm();
             <AiOutlineShareAlt className="text-2xl" />
           </label>
         </div>
-
+        <div className="my-3">
+          <p>{showDesc ? desc : desc.slice(0, 100) + "..."}</p>
+          <button
+            onClick={() => setShowDesc(!showDesc)}
+            className="btn btn-sm btn-ghost shadow-md"
+          >
+            {showDesc ? "show less" : "show more"}
+          </button>
+        </div>
         {/* comment box */}
-        <form 
-            onSubmit={handleSubmit(handleComment)}
+        <form
+          onSubmit={handleSubmit(handleComment)}
           className={`w-full flex my-4 ${
             commnetBox ? "h-auto" : "h-0 overflow-hidden"
           }`}
         >
           <input
-          {...register("comment", { required: true })} 
-          onChange={(e)=>setComment(e.target.value)}
+            {...register("comment", { required: true })}
+            onChange={(e) => setComment(e.target.value)}
             type="text"
             placeholder="Write comment"
             className="input input-bordered rounded-r-none w-full"
             id=""
           />
-          <button disabled={comment.length<5}  className="btn btn-warning w-32 rounded-l-none">{loading?<ButtonLoading />:'Comment'}</button>
+          <button
+            disabled={comment.length < 5}
+            className="btn btn-warning w-32 rounded-l-none"
+          >
+            {loading ? <ButtonLoading /> : "Comment"}
+          </button>
         </form>
         <Comments comments={comments} />
       </div>

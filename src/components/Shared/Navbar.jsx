@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/ContextProvider";
 import Notification from "../Notification/Notification";
 import UploadWidget from "../Upload/UploadWidget";
+import logo from '/logo.svg'
 
 const Navbar = ({ hideSideBar }) => {
   const { googleLogin, userLogout, user } = useContext(AuthContext);
@@ -39,7 +40,7 @@ const Navbar = ({ hideSideBar }) => {
                 ? "block w-10 h-10 transition-all duration-300"
                 : "w-20 md:w-0 transition-all duration-300"
             } `}
-            src="https://res.cloudinary.com/dcckbmhft/image/upload/v1677914511/fav_dtornq.svg"
+            src={logo}
             alt=""
           />
         </Link>

@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import VideoCard from "./VideoCard";
 
 const Home = () => {
   // loading until fetch data
-  const [loadig,setLoading] = useState(true)
+  const [loading,setLoading] = useState(true)
   // tags
   const [tag,setTag] = useState('')
 
@@ -22,6 +23,10 @@ const Home = () => {
 
   return (
     <div>
+      <Helmet>
+                <meta charSet="utf-8" />
+                <title>Home || Video Star</title>
+            </Helmet>
       <div className="flex overflow-auto scroll-smooth gap-1 my-2">
         <button onClick={()=>setTag('')} className="btn btn-outline hover:bg-primary hover:text-black hover:border-transparent btn-sm">
           All
@@ -51,7 +56,7 @@ const Home = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-center gap-2 w-full">
        
         {videos.map((video) => (
-          loadig ? <div className="flex flex-col px-3 -z-10 rounded shadow-md w-full gap-3 animate-pulse h-64">
+          loading ? <div className="flex flex-col px-3 -z-10 rounded shadow-md w-full gap-3 animate-pulse h-64">
 	<div className="h-44 rounded-xl bg-gray-300"></div>
 	<div className="flex-1 px-4 py-8 space-y-4  bg-gray-50">
 		<div className="w-full h-6 rounded bg-gray-300"></div>

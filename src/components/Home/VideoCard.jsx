@@ -1,18 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import VideoThumbnail from 'react-video-thumbnail'; // use npm published version
+import moment from 'moment';
 
 
 const VideoCard = ({video}) => {
   const {thumb,author,email,date,title,id,videoUrl,view} = video;
   return (
     <div className="w-full ">
-      <div className="h-44 w-full overflow-hidden">
+       <Link to={`/video/${id}`} >
+      <div className="h-44 w-full rounded-xl bg-gray-200 overflow-hidden">
       <VideoThumbnail
     videoUrl={videoUrl}
     
     />
-      </div>
+      </div></Link>
       <div className="break-words h-24   ">
         <div className="flex items-center gap-1">
           <img
@@ -27,7 +29,8 @@ const VideoCard = ({video}) => {
             <p className="text-sm">{author}</p>
             <div className="flex gap-3 text-sm">
               <p>View: {view}</p>
-              <p>{date}</p>
+              <p>{moment(date).fromNow()}</p>
+              
             </div>
           </div>
         </div>

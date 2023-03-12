@@ -4,6 +4,7 @@ import { FaGripfire,FaRegClock } from 'react-icons/fa';
 import { RiGamepadLine,RiHistoryFill } from 'react-icons/ri';
 import { TfiCup } from 'react-icons/tfi';
 import { Link } from 'react-router-dom';
+import logo from '/logo.svg'
 
 const Sidebar = ({hideSideBar, setHideSideBar}) => {
    
@@ -19,7 +20,7 @@ const Sidebar = ({hideSideBar, setHideSideBar}) => {
             >
               <img
                 className="w-12"
-                src="https://res.cloudinary.com/dcckbmhft/image/upload/v1677914511/fav_dtornq.svg"
+                src={logo}
                 alt=""
               />
             </Link>
@@ -40,7 +41,7 @@ const Sidebar = ({hideSideBar, setHideSideBar}) => {
             {/* Home */}
             <li className='font-bold'>
               <Link
-                to={"#"}
+                to={"/"}
                 className={`flex items-center ${
                   hideSideBar ? "justify-center" : "justify-start"
                 }`}
@@ -56,7 +57,7 @@ const Sidebar = ({hideSideBar, setHideSideBar}) => {
             {/* Trending */}
             <li className='font-bold'>
               <Link
-                to={"#"}
+                to={"/trending"}
                 className={`flex items-center ${
                   hideSideBar ? "justify-center" : "justify-start"
                 }`}

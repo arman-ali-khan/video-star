@@ -71,8 +71,11 @@ const [replied,setReplied] = useState(false)
           <p className="leading-4">
             {comment.comment}
           </p>
-          
-          <button onClick={()=>setShowreply(!showreply)} className="btn btn-sm btn-ghost m-2">reply</button>
+     
+            
+     <div className='sm:flex items-center'>
+  <div className=''>
+  <button onClick={()=>setShowreply(!showreply)} className="btn btn-sm btn-ghost ">reply</button>
           {/* Input btn */}
 {
 showreply ? <form onSubmit={handleSubmit(handleReply)} className='flex items-center my-2'>
@@ -82,8 +85,9 @@ className='input input-bordered rounded-r-none' type="text" id="" />
 </form>
 :''
 }
+ 
+  </div>
            {/* reply */}
-
           
           {
             replies.length === 1 &&  <button onClick={()=>setRepliesShow(!replesShow)} className='btn btn-sm btn-ghost'>{replesShow ? <RiArrowDropDownLine className='text-2xl' /> :<RiArrowDropUpLine className='text-2xl' /> }{replies.length} reply </button>
@@ -91,6 +95,7 @@ className='input input-bordered rounded-r-none' type="text" id="" />
           {
             replies.length > 1 &&  <button onClick={()=>setRepliesShow(!replesShow)} className='btn btn-sm btn-ghost'>{replesShow ? <RiArrowDropDownLine className='text-2xl' /> :<RiArrowDropUpLine className='text-2xl' /> } {replies.length} replies </button>
           }
+     </div>
       <div className={`${replesShow?'hidden':'block'}`}>
         {
             replies.map(reply=>
@@ -114,6 +119,7 @@ className='input input-bordered rounded-r-none' type="text" id="" />
         </div>)
         }
        
+      
       </div>
         </div>
       </div>
