@@ -6,7 +6,7 @@ import { RiNotification4Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/ContextProvider";
 import io from 'socket.io-client'
-const socket = io.connect()
+const socket = io.connect('https://video-star.onrender.com:10000')
 const Notification = () => {
   const {user} = useContext(AuthContext)
 
