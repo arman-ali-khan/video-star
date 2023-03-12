@@ -48,7 +48,7 @@ const UploadWidget = () => {
             duration,
             thumb
           };
-          fetch(`http://localhost:5000/video`, {
+          fetch(`${import.meta.env.VITE_APP_API}/video`, {
             method: "POST",
             headers: {
               "content-type": "application/json",

@@ -14,8 +14,8 @@ export const router = createBrowserRouter([
         {path:'/login',element:<Login />},
         {path:'/register',element:<Register />},
         {path:'/trending',element:<Trending />},
-        {path:'/upload/:id',element:<Upload />,loader:({params})=>fetch(`http://localhost:5000/video/${params.id}`)},
-        {path:'/video/:id',element:<Video />,loader:({params})=>fetch(`http://localhost:5000/video/${params.id}`)},
-        // {path:'/feed/:id',element:<Feed />,loader:({params})=>fetch(`http://localhost:5000/feed/${params.id}`)},
+        {path:'/upload/:id',element:<Upload />,loader:({params})=>fetch(`${import.meta.env.VITE_APP_API}/video/${params.id}`)},
+        {path:'/video/:id',element:<Video />,loader:({params})=>fetch(`${import.meta.env.VITE_APP_API}/video/${params.id}`)},
+        {path:'/feed/:id',element:<Feed />,loader:({params})=>fetch(`${import.meta.env.VITE_APP_API}/videos/${params.id}`)},
     ]}
 ])

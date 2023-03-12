@@ -24,7 +24,7 @@ const Upload = () => {
   { value: 'funny', label: 'Funny' },
   { value: 'sports', label: 'Sports' },
   { value: 'music', label: 'Music' },
-  { value: 'Gamming', label: 'Gamming' },
+  { value: 'gaming', label: 'Gaming' },
 ]
 // Tags 
 const [tags,setTags] = useState([])
@@ -40,7 +40,7 @@ const handleUpload = e =>{
     desc,
     view:0
    }
-   fetch(`http://localhost:5000/video/${id}`,{
+   fetch(`${import.meta.env.VITE_APP_API}/video/${id}`,{
     method:"PUT",
     headers:{
         'content-type':'application/json'

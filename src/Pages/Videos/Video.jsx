@@ -11,8 +11,12 @@ import { useForm } from "react-hook-form";
 import Comments from "../../components/Comment/Comments";
 import CommentButton from "../../components/Comment/CommentButton";
 import { Helmet } from "react-helmet";
+import moment from 'moment';
 
 const Video = () => {
+
+
+
   // Context api
   const { user } = useContext(AuthContext);
 
@@ -36,7 +40,7 @@ const Video = () => {
   const videoData = useLoaderData({});
 
   // destructure
-  const { email, author, title, thumb, id, videoUrl } = videoData;
+  const { email, author, title, thumb, id, videoUrl,view,date,desc } = videoData;
 
   // loading comment
   const [loading, setLoading] = useState(false);
@@ -68,19 +72,22 @@ const Video = () => {
         setLoading(false);
         reset();
         setCommented(!commented);
+        
       });
   };
 
-  const desc =
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat neque placeat illo ipsum veritatis velit suscipit maxime! Voluptates, culpa atque, quia, voluptate fugiat voluptatibus adipisci est nemo eius similique harum?";
 
   // get all comment
   const [comments, setComments] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/comments/${id}`)
+      .get(`${import.meta.env.VITE_APP_API}/comments/${id}`)
       .then((res) => setComments(res.data));
   }, [comment, commented]);
+
+
+
+
 
   return (
     <div className="md:flex gap-2">
@@ -89,7 +96,8 @@ const Video = () => {
           <meta charSet="utf-8" />
           <title>{videoData.title}</title>
         </Helmet>
-        <div>
+        <div className="mt-16 md:mt-0">
+        
           <video className="rounded-md w-full h-auto" controls="controls">
             <source src={videoUrl} type="video/mp4" />
             <source
@@ -122,9 +130,13 @@ const Video = () => {
             <AiOutlineShareAlt className="text-2xl" />
           </label>
         </div>
-
+        {/* <button className="btn " onClick={handleNotification}>Send</button> */}
         {/* Description */}
         <div className="my-3">
+          <div className="flex items-center gap-4">
+          <p className="font-bold">{view} views</p>
+          <p className="font-bold">{moment(date).fromNow()}</p>
+          </div>
           {
             desc.length >100 ? <p>{showDesc ? desc : desc.slice(0, 100) +'...'}</p>
             :

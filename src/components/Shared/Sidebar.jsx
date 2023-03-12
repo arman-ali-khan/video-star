@@ -72,7 +72,7 @@ const Sidebar = ({hideSideBar, setHideSideBar}) => {
             </li>
             <li className='font-bold'>
               <Link
-                to={"#"}
+                to={"/feed/music"}
                 className={`flex items-center ${
                   hideSideBar ? "justify-center" : "justify-start"
                 }`}
@@ -87,7 +87,7 @@ const Sidebar = ({hideSideBar, setHideSideBar}) => {
             </li>
             <li className='font-bold'>
               <Link
-                to={"#"}
+                to={"/feed/gaming"}
                 className={`flex items-center ${
                   hideSideBar ? "justify-center" : "justify-start"
                 }`}
@@ -102,7 +102,7 @@ const Sidebar = ({hideSideBar, setHideSideBar}) => {
             </li>
             <li className='font-bold'>
               <Link
-                to={"#"}
+                to={"/feed/sports"}
                 className={`flex items-center ${
                   hideSideBar ? "justify-center" : "justify-start"
                 }`}
@@ -121,7 +121,7 @@ const Sidebar = ({hideSideBar, setHideSideBar}) => {
                 </span>
               </Link>
             </li>
-            <li className='font-bold'>
+            {/* <li className='font-bold'>
               <Link
                 to={"#"}
                 className={`flex items-center ${
@@ -150,7 +150,7 @@ const Sidebar = ({hideSideBar, setHideSideBar}) => {
                  History
                 </span>
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
     );

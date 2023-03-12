@@ -12,7 +12,7 @@ const Home = () => {
   // get all videos
   const [videos,setVideos] = useState([])
   useEffect(()=>{
-    axios.get(`http://localhost:5000/videos/${tag}`)
+    axios.get(`${import.meta.env.VITE_APP_API}/videos/${tag}`)
     .then(res=>{
       setVideos(res.data)
       setLoading(false)

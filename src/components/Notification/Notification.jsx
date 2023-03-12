@@ -1,8 +1,21 @@
-import React from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { AiFillLike, AiOutlineLike } from "react-icons/ai";
+import { BiCommentDetail } from "react-icons/bi";
 import { RiNotification4Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
-
+import { AuthContext } from "../../context/ContextProvider";
+import io from 'socket.io-client'
+const socket = io.connect('http://localhost:5002')
 const Notification = () => {
+  const {user} = useContext(AuthContext)
+
+  // get user notifications
+  const [notifications,setNotifications] = useState([])
+  useEffect(()=>{
+    axios.get(`http://localhost:5002/notification?email=${user.email}`)
+    .then(res=>setNotifications(res.data))
+  },[socket])
   return (
     <li
       className="flex justify-center items-center duration-300 transition-all tooltip tooltip-bottom"
@@ -22,44 +35,19 @@ const Notification = () => {
           tabIndex={0}
           className="dropdown-content mt-2 rounded-md menu p-2 shadow bg-base-100 w-80 md:w-96"
         >
-          <div className="flex items-center w-full mb-1 hover:bg-gray-300 rounded-md">
-            <img
-              className="w-12 h-12 rounded-full"
-              src="https://res.cloudinary.com/dcckbmhft/image/upload/v1673848147/cld-sample-3.jpg"
-              alt=""
-            />
+          {
+            notifications.map(notification=> <div key={notification._id} className="flex items-center w-full mb-1 hover:bg-gray-300 rounded-md">
+           {
+            notification.type === 'like' ? <AiOutlineLike className="text-3xl" /> : <BiCommentDetail className="text-3xl" />
+           }
             <li className="flex items-center">
-              <Link className="bg-transparent break-words w-72 md:w-80 text-left">
-                User like your video fsdf fsdaf sdfsadf sdf aseYour video title
+              <Link to={`/video/${notification.videoId}`} className="bg-transparent break-words w-72 md:w-80 text-left">
+               {notification.name} {notification.type} your video {notification.title.slice(0,40)}
               </Link>
             </li>
-          </div>
-
-          <div className="flex items-center w-full mb-1 hover:bg-gray-300 rounded-md">
-            <img
-              className="w-12 h-12 rounded-full"
-              src="https://res.cloudinary.com/dcckbmhft/image/upload/v1673848147/cld-sample-3.jpg"
-              alt=""
-            />
-            <li className="flex items-center">
-              <Link className="bg-transparent break-words w-72 md:w-80 text-left">
-                User Comment your video Your video title
-              </Link>
-            </li>
-          </div>
-
-          <div className="flex items-center w-full mb-1 hover:bg-gray-300 rounded-md">
-            <img
-              className="w-12 h-12 rounded-full"
-              src="https://res.cloudinary.com/dcckbmhft/image/upload/v1673848147/cld-sample-3.jpg"
-              alt=""
-            />
-            <li className="flex items-center">
-              <Link className="bg-transparent break-words w-72 md:w-80 text-left">
-                User posted new video Your video title
-              </Link>
-            </li>
-          </div>
+          </div>)
+          }
+         
         </ul>
       </div>
     </li>
