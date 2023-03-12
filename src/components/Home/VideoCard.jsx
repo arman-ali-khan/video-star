@@ -4,7 +4,7 @@ import VideoThumbnail from 'react-video-thumbnail'; // use npm published version
 
 
 const VideoCard = ({video}) => {
-  const {thumb,author,email,data,title,id,videoUrl} = video;
+  const {thumb,author,email,date,title,id,videoUrl,view} = video;
   return (
     <div className="w-full ">
       <div className="h-44 w-full overflow-hidden">
@@ -26,8 +26,8 @@ const VideoCard = ({video}) => {
             </Link>
             <p className="text-sm">{author}</p>
             <div className="flex gap-3 text-sm">
-              <p>View: 23</p>
-              <p>3day ago</p>
+              <p>View: {view}</p>
+              <p>{date}</p>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const SingleComment = ({comments}) => {
+    const [showreply,setShowreply] = useState(false)
     return (
         <>
             <div>
@@ -23,8 +24,16 @@ const SingleComment = ({comments}) => {
                 {comm.comment}
               </p>
               
-              <button className="btn btn-sm btn-ghost m-2">Replay</button>
-               {/* Replay */}
+              <button onClick={()=>setShowreply(!showreply)} className="btn btn-sm btn-ghost m-2">reply</button>
+              {/* Input btn */}
+{
+    showreply ? <div className='flex items-center'>
+    <input className='input input-bordered rounded-r-none' type="text" name="" id="" />
+    <button className='btn rounded-l-none btn-warning'>reply</button>
+    </div>
+    :''
+}
+               {/* reply */}
           <div className=" ">
             <div className="flex w-full gap-2">
               <div>

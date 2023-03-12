@@ -32,6 +32,7 @@ const handleUpload = e =>{
    const updateData = {
     title:newTitle,
     tags,
+    view:0
    }
    fetch(`http://localhost:5000/video/${id}`,{
     method:"PUT",
