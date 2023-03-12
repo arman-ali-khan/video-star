@@ -6,14 +6,14 @@ import { RiNotification4Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/ContextProvider";
 import io from 'socket.io-client'
-const socket = io.connect('http://localhost:5002')
+const socket = io.connect(import.meta.env.VITE_APP_API)
 const Notification = () => {
   const {user} = useContext(AuthContext)
 
   // get user notifications
   const [notifications,setNotifications] = useState([])
   useEffect(()=>{
-    axios.get(`http://localhost:5002/notification?email=${user.email}`)
+    axios.get(`${import.meta.env.VITE_APP_API}/notification?email=${user.email}`)
     .then(res=>setNotifications(res.data))
   },[socket])
   return (

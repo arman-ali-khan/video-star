@@ -5,7 +5,7 @@ import { AiOutlineLike, AiTwotoneLike } from "react-icons/ai";
 import { AuthContext } from "../../context/ContextProvider";
 import io from "socket.io-client";
 
-const socket = io.connect("http://localhost:5002");
+const socket = io.connect(import.meta.env.VITE_APP_API);
 
 const Like = ({ videoData }) => {
   // Socket io

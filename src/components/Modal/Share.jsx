@@ -55,57 +55,57 @@ const Share = ({ id }) => {
 
           <div className="flex overflow-auto gap-2">
             {/* Facebook */}
-            <FacebookShareButton url={`http://localhost:5173/video/${id}`}>
+            <FacebookShareButton url={`${import.meta.env.VITE_APP_BASE_URL}/video/${id}`}>
               <FacebookIcon size={44} round={true} />
             </FacebookShareButton>
 
             {/* Twitter */}
-            <TwitterShareButton url={`http://localhost:5173/video/${id}`}>
+            <TwitterShareButton url={`${import.meta.env.VITE_APP_BASE_URL}/video/${id}`}>
               <TwitterIcon size={44} round={true} />
             </TwitterShareButton>
 
             {/* Whatsapp */}
-            <WhatsappShareButton url={`http://localhost:5173/video/${id}`}>
+            <WhatsappShareButton url={`${import.meta.env.VITE_APP_BASE_URL}/video/${id}`}>
               <WhatsappIcon size={44} round={true} />
             </WhatsappShareButton>
 
             {/* Email */}
-            <EmailShareButton url={`http://localhost:5173/video/${id}`}>
+            <EmailShareButton url={`${import.meta.env.VITE_APP_BASE_URL}/video/${id}`}>
               <EmailIcon size={44} round={true} />
             </EmailShareButton>
 
             {/* Reddit */}
-            <RedditShareButton url={`http://localhost:5173/video/${id}`}>
+            <RedditShareButton url={`${import.meta.env.VITE_APP_BASE_URL}/video/${id}`}>
               <RedditIcon size={44} round={true} />
             </RedditShareButton>
 
             {/* VK */}
-            <VKShareButton url={`http://localhost:5173/video/${id}`}>
+            <VKShareButton url={`${import.meta.env.VITE_APP_BASE_URL}/video/${id}`}>
               <VKIcon size={44} round={true} />
             </VKShareButton>
 
             {/* OK */}
-            <OKShareButton url={`http://localhost:5173/video/${id}`}>
+            <OKShareButton url={`${import.meta.env.VITE_APP_BASE_URL}/video/${id}`}>
               <OKIcon size={44} round={true} />
             </OKShareButton>
 
             {/* Pinterest */}
-            <PinterestShareButton url={`http://localhost:5173/video/${id}`}>
+            <PinterestShareButton url={`${import.meta.env.VITE_APP_BASE_URL}/video/${id}`}>
               <PinterestIcon size={44} round={true} />
             </PinterestShareButton>
 
             {/* Blogger */}
-            <LinkedinShareButton url={`http://localhost:5173/video/${id}`}>
+            <LinkedinShareButton url={`${import.meta.env.VITE_APP_BASE_URL}/video/${id}`}>
               <LinkedinIcon size={44} round={true} />
             </LinkedinShareButton>
 
             {/* Tumblr */}
-            <TumblrShareButton url={`http://localhost:5173/video/${id}`}>
+            <TumblrShareButton url={`${import.meta.env.VITE_APP_BASE_URL}/video/${id}`}>
               <TumblrIcon size={44} round={true} />
             </TumblrShareButton>
 
             {/* Telegram*/}
-            <TelegramShareButton url={`http://localhost:5173/video/${id}`}>
+            <TelegramShareButton url={`${import.meta.env.VITE_APP_BASE_URL}/video/${id}`}>
               <TelegramIcon size={44} round={true} />
             </TelegramShareButton>
           </div>
