@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 const Upload = () => {
   const videoData = useLoaderData({});
+
+  // navigate
+  const navigate = useNavigate()
 
   const { videoUrl,title,thumb,id } = videoData;
   console.log(videoData)
@@ -26,12 +29,15 @@ const Upload = () => {
 // Tags 
 const [tags,setTags] = useState([])
 
+
 const handleUpload = e =>{
     e.preventDefault();
    const newTitle = e.target.title.value;
+   const desc = e.target.desc.value;
    const updateData = {
     title:newTitle,
     tags,
+    desc,
     view:0
    }
    fetch(`http://localhost:5000/video/${id}`,{
@@ -45,6 +51,7 @@ const handleUpload = e =>{
    .then(data=>{
     console.log(data)
     toast.success('Post Published')
+    navigate(`/video/${id}`)
    })
 }
 
@@ -66,9 +73,11 @@ const handleUpload = e =>{
         </div>
          <div className="space-y-3 mt-3">
          <div>
+          <p>Title</p>
             <input type="text" name="title" id="" className="input input-bordered w-full" defaultValue={title} />
           </div>
           <div>
+            <p>Select Tags</p>
           <Select
           onChange={(e)=>setTags(e)}
       closeMenuOnSelect={false}
@@ -77,8 +86,12 @@ const handleUpload = e =>{
       options={options}
     />
           </div>
+          <div>
+            <p>Description</p>
+            <textarea name="desc" className="textarea textarea-bordered w-full"></textarea>
+          </div>
          </div>
-         <button className="btn w-full my-3 btn-warning">Publish</button>
+         <button disabled={tags.length===0} className="btn w-full my-3 btn-warning">Publish</button>
         </form>
       </div>
     </div>

@@ -98,7 +98,7 @@ const Video = () => {
             />
           </video>
         </div>
-        {/* Video title and description */}
+        {/* Video title  */}
         <div>
           <div>
             <h3 className="text-xl font-bold">{videoData.title}</h3>
@@ -122,14 +122,24 @@ const Video = () => {
             <AiOutlineShareAlt className="text-2xl" />
           </label>
         </div>
+
+        {/* Description */}
         <div className="my-3">
-          <p>{showDesc ? desc : desc.slice(0, 100) + "..."}</p>
-          <button
-            onClick={() => setShowDesc(!showDesc)}
-            className="btn btn-sm btn-ghost shadow-md"
-          >
-            {showDesc ? "show less" : "show more"}
-          </button>
+          {
+            desc.length >100 ? <p>{showDesc ? desc : desc.slice(0, 100) +'...'}</p>
+            :
+            <p>{desc }</p>
+          }
+          {desc.length > 100 ? (
+            <button
+              onClick={() => setShowDesc(!showDesc)}
+              className="btn btn-sm btn-ghost shadow-md"
+            >
+              {showDesc ? "show less" : "show more"}
+            </button>
+          ) : (
+            ""
+          )}
         </div>
         {/* comment box */}
         <form

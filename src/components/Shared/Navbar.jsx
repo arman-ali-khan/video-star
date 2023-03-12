@@ -5,7 +5,7 @@ import { ImCancelCircle } from "react-icons/im";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/ContextProvider";
 import Notification from "../Notification/Notification";
-import UploadWidget from "../Upload/UploadWidget";
+import UploadWidget from "../../Pages/Upload/UploadWidget";
 import logo from '/logo.svg'
 
 const Navbar = ({ hideSideBar }) => {

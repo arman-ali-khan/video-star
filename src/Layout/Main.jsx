@@ -1,13 +1,6 @@
 import React, { useState } from "react";
-import {
-  CgHome,
-  CgMenuMotion,
-  CgNotifications,
-  CgSearch,
-} from "react-icons/cg";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Footer from "../components/Shared/Footer";
-import { RiNotification4Line } from "react-icons/ri";
 import Navbar from "../components/Shared/Navbar";
 import Sidebar from "../components/Shared/Sidebar";
 
